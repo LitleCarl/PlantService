@@ -21,8 +21,9 @@ const PinMode = {
     PWM_OUTPUT: 2
 }
 
-const GPIO_LIB_Binding = require('nbind');
-const GPIO_LIB = GPIO_LIB_Binding.init().lib.WiringPiBinding;
+const GPIO_LIB_Binding = require('./nbind.node');
+
+const GPIO_LIB = GPIO_LIB_Binding.WiringPiBinding;
  
 // 初始化Wiring Pi
 GPIO_LIB.wrap_wiringPiSetup()
