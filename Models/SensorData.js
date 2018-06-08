@@ -1,5 +1,6 @@
 var Sequelize = require('sequelize');
 var request = require('request');
+const Op = Sequelize.Op;
 
 var sequelize = new Sequelize('mainDB', null, null, {
     dialect: "sqlite",
@@ -19,6 +20,17 @@ var SensorData = sequelize.define('sensor_data', {
   sensor_number: Sequelize.INTEGER,
   raw_value: Sequelize.INTEGER
 });
+
+SensorData.asyncFetchRecordsBySensorNumber = async function (sensorNumber) {
+    SensorData.findAll({
+        where: {'sensor_number': sensorNumber},
+        limit: 24 * 60 // 默认返回一天的历史记录
+    })
+    const promise = new Promise(function(resolve, reject) {
+        sensor_number
+    })
+    return promise;
+}
 
 SensorData.asyncGetLatestRecordsFromDB = async function () {
     const promise = new Promise(function(resolve, reject) {

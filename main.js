@@ -27,6 +27,12 @@ app.get('/SensorData', (req, res) => {
     })
 })
 
+app.get('/SensorData/:sensor_number', (req, res) => {
+  SensorData.asyncFetchRecordsBySensorNumber(req.params.sensor_number).then((results)=>{
+    res.json(apiResult(results));
+  })
+})
+
 // 获取IO端口状态
 app.get('/DevicePorts', (req, res) => {
   let inputPortsJson = _.map(inputPorts, (p)=>p.toJSON())
