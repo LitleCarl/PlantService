@@ -22,14 +22,10 @@ var SensorData = sequelize.define('sensor_data', {
 });
 
 SensorData.asyncFetchRecordsBySensorNumber = async function (sensorNumber) {
-    SensorData.findAll({
+    return SensorData.findAll({
         where: {'sensor_number': sensorNumber},
         limit: 24 * 60 // 默认返回一天的历史记录
     })
-    const promise = new Promise(function(resolve, reject) {
-        sensor_number
-    })
-    return promise;
 }
 
 SensorData.asyncGetLatestRecordsFromDB = async function () {
