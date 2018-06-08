@@ -1,0 +1,27 @@
+{
+    "inputs": [{
+        "name": "通断(1)",
+        "pinNumber": 12,
+        "pull": 0
+    }, {
+        "name": "通断(2)",
+        "pinNumber": 13,
+        "pull": 0
+    }],
+    "outputs": [{
+        "name": "继电器(1)",
+        "pinNumber": 0,
+        "initial_volt": 0,
+        "pull": 0
+    }, {
+        "name": "继电器(2)",
+        "pinNumber": 2,
+        "initial_volt": 0,
+        "pull": 0
+    }, {
+        "name": "继电器(3)",
+        "pinNumber": 3,
+        "initial_volt": 0,
+        "pull": 0
+    }]
+}
