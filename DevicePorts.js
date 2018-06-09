@@ -100,6 +100,40 @@ class OutputPort {
         this._currentValue = val;
         GPIO_LIB.wrap_digitalWrite(this.pinNumber, val);
     }
+
+    // timeout 0表示永久生效，否则则是超出制定秒数后进入相反电平
+    setLevelWithTimeout(level, timeout=0) {
+        if (this.timeoutToken) {
+            console.log('timeoutToken 已经清除')
+            clearTimeout(this.timeoutToken)
+            this.timeoutToken = null;
+        }
+
+        if (this.timeIntervalToken) {
+            console.log('timeIntervalToken 已经清除')
+            clearInterval(this.timeIntervalToken);
+            this.timeIntervalToken = null;
+        }
+        this.timeLeft = 0;
+
+
+        this.currentValue = level;
+        if (timeout > 0) {
+            this.timeLeft = timeout * 1000;
+
+            this.timeIntervalToken = setInterval(()=>{
+                this.timeLeft -= 1000;
+            }, 1000)
+
+            this.timeoutToken = setTimeout(()=>{
+                this.currentValue = (1 - level)
+                this.timeoutToken = null;
+                clearInterval(this.timeIntervalToken);
+                this.timeIntervalToken = null;
+                this.timeLeft = 0;
+            }, timeout * 1000)
+        } 
+    }
 }
 
 const outputPorts = _.map(configObject['outputs'], (outputItem)=>{            

@@ -46,13 +46,14 @@ app.get('/DevicePorts', (req, res) => {
 app.post('/DevicePorts/:pinNumber', (req, res) => {
   var pinNumber = parseInt(req.params.pinNumber)
   var level = parseInt(req.body.level)
+  var timeout = parseInt(req.body.timeout) || 0
 
   const filtedPort = _.filter(outputPorts, (p)=>{
     return p.pinNumber == pinNumber
   })[0]
 
   if (filtedPort && level >= 0 && level <= 1) {
-    filtedPort.currentValue = level;
+    filtedPort.setLevelWithTimeout(level, timeout)
     res.json(apiResult())
   } else {
     res.json(apiError('端口不存在或参数错误'))
