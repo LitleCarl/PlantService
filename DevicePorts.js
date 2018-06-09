@@ -79,7 +79,8 @@ class OutputPort {
             pinNumber: this.pinNumber,
             value: this.currentValue,
             type: 'output',
-            timeLeft: this.timeLeft || 0
+            timeLeft: this.timeLeft || 0,
+            totalTime: this.totalTime
         }
     }
 
@@ -119,11 +120,12 @@ class OutputPort {
             this.timeIntervalToken = null;
         }
         this.timeLeft = 0;
-
+        this.totalTime = 0;
 
         this.currentValue = level;
         if (timeout > 0) {
             this.timeLeft = timeout * 1000;
+            this.totalTime = timeout * 1000;
 
             this.timeIntervalToken = setInterval(()=>{
                 this.timeLeft -= 1000;
@@ -135,6 +137,7 @@ class OutputPort {
                 clearInterval(this.timeIntervalToken);
                 this.timeIntervalToken = null;
                 this.timeLeft = 0;
+                this.totalTime = 0;
             }, timeout * 1000)
         } 
     }
