@@ -44,7 +44,9 @@ class InputPort {
         return {
             name: this.name,
             pinNumber: this.pinNumber,
-            value: this.read()
+            value: this.read(),
+            type: 'input'
+
         }
     }
 
@@ -75,7 +77,9 @@ class OutputPort {
         return {
             name: this.name,
             pinNumber: this.pinNumber,
-            value: this.currentValue
+            value: this.currentValue,
+            type: 'output',
+            timeLeft: this.timeLeft || 0
         }
     }
 
